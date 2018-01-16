@@ -54,7 +54,7 @@
                 </div>
                 <div class="column">
                   <?php
-                  echo "<a href='index.php/record.php/?id=".$_SESSION['doc']['_id']."&code=PASS' class='button'>PASS</a>";
+                  echo "<a href='index.php/record.php?id=".$_SESSION['doc']['_id']."&code=PASS' class='button'>PASS</a>";
                   ?>
                 </div>
                 <div class="column">
@@ -96,25 +96,25 @@
               <div class="level-item has-text-centered">
                 <div>
                   <p class="heading">1</p>
-                  <p class="title"><a href="index.php/?class=1" class="button">Computer Occupation</a></p>
+                  <p class="title"><a href="index.php?class=1" class="button">Computer Occupation</a></p>
                 </div>
               </div>
               <div class="level-item has-text-centered">
                 <div>
                   <p class="heading">2</p>
-                  <p class="title"><a href="index.php/?class=2" class="button">Mathematicians</a></p>
+                  <p class="title"><a href="index.php?class=2" class="button">Mathematicians</a></p>
                 </div>
               </div>
               <div class="level-item has-text-centered">
                 <div>
                   <p class="heading">3</p>
-                  <p class="title"><a href="index.php/?class=3" class="button">Engineer</a></p>
+                  <p class="title"><a href="index.php?class=3" class="button">Engineer</a></p>
                 </div>
               </div>
               <div class="level-item has-text-centered">
                 <div>
                   <p class="heading">4</p>
-                  <p class="title"><a href="index.php/?class=4" class="button">Scientists</a></p>
+                  <p class="title"><a href="index.php?class=4" class="button">Scientists</a></p>
                 </div>
               </div>
             </nav>
@@ -140,7 +140,7 @@
                           $code = $valuein;
                         }
                       }
-                      echo "<td><a href='record.php/?id=".$_SESSION['doc']['_id']."&code=".$value['code']."' class='button is-link'>Select</a></td>";
+                      echo "<td><a href='record.php?id=".$_SESSION['doc']['_id']."&code=".$value['code']."' class='button is-link'>Select</a></td>";
                       echo "</tr>";
                     }
 
