@@ -24,6 +24,7 @@
     $collection->updateOne(["_id" => $row['_id']], ['$set'=> ['status'=>'locked']]);
     return $row;
   }
+
   function  unserial($mybson){
     $temp = array();
     foreach ($mybson as $key => $value) {
@@ -31,6 +32,7 @@
     }
     return $temp;
   }
+
   function getOccupations($occupation){
     require('vendor/autoload.php');
     require('variables.php');
@@ -47,6 +49,22 @@
     }
     $row = $collection->find(['category'=>$occu],['projection'=>['_id'=> 0]]);
     return $row;
+  }
+
+  function markCategory($id, $occupation){
+    if ($occupation == 1) {
+      $cat = 'Computer Occupation';
+    }else if($occupation == 2){
+      $cat = 'Mathematicians';
+    }else if($occupation == 3){
+      $cat = 'Engineer';
+    }else if ($occupation == 4) {
+      $cat = 'Scientists';
+    }{
+      $cat = 'Other';
+    }
+    $collection = getJobadsCollection();
+    $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>$cat]]);
   }
 
  ?>

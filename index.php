@@ -22,12 +22,12 @@
   <section class="section">
     <div class="container">
       <div class="columns">
-
         <div class="column">
           <div class="box">
             <div class="table is-bordered">
               <div class="content">
                 <table class="table">
+                  <h2>Job Details</h2>
                   <?php
                     foreach ($doc as $key => $value) {
                       echo "<tr>";
@@ -52,9 +52,9 @@
               <div class="columns is-centered">
                 <div class="column">
                 </div>
-                <div class="column">
+                <div class="column has-text-centered">
                   <?php
-                  echo "<a href='index.php/record.php?id=".$_SESSION['doc']['_id']."&code=PASS' class='button'>PASS</a>";
+                  // echo "<a href='index.php/record.php?id=".$_SESSION['doc']['_id']."&code=PASS' class='button'>PASS</a>";
                   ?>
                 </div>
                 <div class="column">
@@ -66,7 +66,7 @@
 
         </div>
 
-        <div class="column">
+        <!-- <div class="column">
           <div class="box">
             <div class="content">
               <h2>Search</h2>
@@ -87,7 +87,7 @@
           </div>
 
 
-          </div>
+          </div> -->
         </div>
         <div class="box">
           <div class="content">
@@ -117,42 +117,58 @@
                   <p class="title"><a href="index.php?class=4" class="button">Scientists</a></p>
                 </div>
               </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">5</p>
+                  <p class="title"><a href="index.php?class=5" class="button">Other</a></p>
+                </div>
+              </div>
             </nav>
           </div>
               <hr>
               <?php if (isset($_GET['class'])): ?>
-                <div class="content">
-                  <table class="table is-bordered">
-                    <tr>
-                      <th>Category</th>
-                      <th>Occupation</th>
-                      <th>Description</th>
-                      <th>Select</th>
-                    </tr>
-                    <?php
-                    $rows = getOccupations($_GET['class']);
-                    foreach ($rows as $key => $value) {
-                      echo "<tr>";
-                      foreach ($value as $keyin => $valuein) {
-                        if($keyin !== 'code'){
-                          echo "<td>".$valuein."</td>";
-                        }else{
-                          $code = $valuein;
+                <?php if ($_GET['class'] == 5): ?>
+                  <div class="columns">
+                    <div class="column">
+                    </div>
+                    <div class="column has-text-centered">
+                      <div class="field">
+                        <h2>Mark this job as Other?</h2>
+                      </div>
+                      <a href="#" class="button is-link">Confirm</a>
+                    </div>
+                    <div class="column">
+                    </div>
+                  </div>
+                <?php else: ?>
+                  <div class="content">
+                    <table class="table is-bordered">
+                      <tr>
+                        <th>Category</th>
+                        <th>Occupation</th>
+                        <th>Description</th>
+                        <th>Select</th>
+                      </tr>
+                      <?php
+                      $rows = getOccupations($_GET['class']);
+                      foreach ($rows as $key => $value) {
+                        echo "<tr>";
+                        foreach ($value as $keyin => $valuein) {
+                          if($keyin !== 'code'){
+                            echo "<td>".$valuein."</td>";
+                          }else{
+                            $code = $valuein;
+                          }
                         }
+                        echo "<td><a href='record.php?id=".$_SESSION['doc']['_id']."&code=".$value['code']."' class='button is-link'>Select</a></td>";
+                        echo "</tr>";
                       }
-                      echo "<td><a href='record.php?id=".$_SESSION['doc']['_id']."&code=".$value['code']."' class='button is-link'>Select</a></td>";
-                      echo "</tr>";
-                    }
 
 
-                     ?>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </table>
-                </div>
-
+                       ?>
+                    </table>
+                  </div>
+                <?php endif; ?>
               <?php endif; ?>
 
         </div>
