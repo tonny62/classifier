@@ -178,7 +178,7 @@
 
     </div>
   </section>
-  <a href="destroy.php" class="button">DESTROY</a>
+  <!-- <a href="destroy.php" class="button">DESTROY</a> -->
 </body>
 
 </html>
