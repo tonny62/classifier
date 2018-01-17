@@ -135,7 +135,8 @@
                       <div class="field">
                         <h2>Mark this job as Other?</h2>
                       </div>
-                      <a href="#" class="button is-link">Confirm</a>
+                      <?php
+                      echo "<a href='record.php?id=".$_SESSION['doc']['_id']."&code=5' class='button is-link'>Confirm</a>"; ?>
                     </div>
                     <div class="column">
                     </div>
