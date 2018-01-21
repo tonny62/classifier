@@ -156,7 +156,7 @@
                         echo "<tr>";
                         foreach ($value as $keyin => $valuein) {
                           if($keyin !== 'code'){
-                            echo "<td>".$valuein."</td>";
+                            echo "<td>$valuein</td>";
                           }else{
                             $code = $valuein;
                           }
