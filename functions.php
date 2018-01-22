@@ -3,7 +3,7 @@
     require('vendor/autoload.php');
     require('variables.php');
     $client = new MongoDB\Client($connectionstring);
-    $collection = $client->jobadsclone->jobads;
+    $collection = $client->jobads->jobads;
     return $collection;
   }
 
@@ -37,7 +37,7 @@
     require('vendor/autoload.php');
     require('variables.php');
     $client = new MongoDB\Client($connectionstring);
-    $collection = $client->jobadsclone->occupations;
+    $collection = $client->jobads->occupations;
     if ($occupation == 1) {
       $occu = 'Computer Occupation';
     }else if($occupation == 2){
@@ -65,6 +65,31 @@
     }
     $collection = getJobadsCollection();
     $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>$cat]]);
+  }
+  function countDataframe(){
+    $collection = getJobadsCollection();
+    $jobsource = array('NECTEC','JOBANT','JOBLIST','JOBSAWASDEE','JOBSUGOI','JOBTH','NATIONEJOB');
+    $occupation = array('Computer Occupation','Mathematicians','Engineer','Scientists','Other');
+    $frame = array();
+    foreach ($jobsource as $key => $value) {
+      foreach ($occupation as $keyin => $valuein) {
+        $marked = $collection->find(['_id'=>['$regex'=>$value],'category'=>$valuein]);
+        $markedcount = count(unserial($marked));
+        $frame[$value][$valuein] = $markedcount;
+      }
+    }
+    foreach ($jobsource as $key => $value) {
+      $count = count(unserial($collection->find(['_id'=>['$regex'=>$value]])));
+      $frame[$value]['TOTAL'] = $count;
+    }
+    return $frame;
+    // $frame struncture is
+    //   [ [NECTEC] => [
+    //               [Computer Occupation] => ...,
+    //               ... => ...]],
+    //   ... => [ ... => ...,
+    //   ]
+    // ]
   }
 
  ?>
