@@ -67,6 +67,7 @@
                 </tbody>
               </table>
               <h4>Progress : <?php echo $markedcount."/".$total; ?></h4>
+              <h4>Skipped : <?php echo countskip(); ?></h4>
             </div>
           </div>
         </div>

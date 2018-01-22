@@ -54,7 +54,7 @@
                 </div>
                 <div class="column has-text-centered">
                   <?php
-                  // echo "<a href='index.php/record.php?id=".$_SESSION['doc']['_id']."&code=PASS' class='button'>PASS</a>";
+                  echo "<a href='destroy.php?id=".$_SESSION['doc']['_id']."&code=skip' class='button is-warning'>SKIP</a>";
                   ?>
                 </div>
                 <div class="column">

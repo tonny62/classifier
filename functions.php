@@ -63,6 +63,9 @@
       $collection = getJobadsCollection();
       // print_r($row);
       $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>$row[0]['category'],'code'=>$occupation]]);
+    }if ($occupation == 'skip') {
+      $collection = getJobadsCollection();
+      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'skip']]);
     }else {
       $collection = getJobadsCollection();
       $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'other']]);
@@ -93,6 +96,12 @@
     //   ... => [ ... => ...,
     //   ]
     // ]
+  }
+  function countskip(){
+    $collection = getJobadsCollection();
+    $rows = $collection->find(['status'=>'skip']);
+    $count = count(unserial($rows));
+    return $count;
   }
 
  ?>
