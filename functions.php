@@ -52,19 +52,22 @@
   }
 
   function markCategory($id, $occupation){
-    if ($occupation == 1) {
-      $cat = 'Computer Occupation';
-    }else if($occupation == 2){
-      $cat = 'Mathematicians';
-    }else if($occupation == 3){
-      $cat = 'Engineer';
-    }else if ($occupation == 4) {
-      $cat = 'Scientists';
-    }{
-      $cat = 'Other';
+    if ($occupation != 5) {
+      require('vendor/autoload.php');
+      require('variables.php');
+      $client = new MongoDB\Client($connectionstring);
+      $collection = $client->jobads->occupations;
+      $row = $collection->find(['code'=>$occupation]);
+      $row = unserial($row);
+
+      $collection = getJobadsCollection();
+      // print_r($row);
+      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>$row[0]['category'],'code'=>$occupation]]);
+    }else {
+      $collection = getJobadsCollection();
+      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'other']]);
     }
-    $collection = getJobadsCollection();
-    $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>$cat]]);
+
   }
   function countDataframe(){
     $collection = getJobadsCollection();
