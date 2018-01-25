@@ -69,7 +69,7 @@
       $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'skip']]);
     }else {
       $collection = getJobadsCollection();
-      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'other']]);
+      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'Other']]);
     }
 
   }
