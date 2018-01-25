@@ -63,7 +63,8 @@
       $collection = getJobadsCollection();
       // print_r($row);
       $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>$row[0]['category'],'code'=>$occupation]]);
-    }if ($occupation == 'skip') {
+      // echo $row[0]['category'];
+    }else if ($occupation == 'skip') {
       $collection = getJobadsCollection();
       $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'skip']]);
     }else {
@@ -102,6 +103,18 @@
     $rows = $collection->find(['status'=>'skip']);
     $count = count(unserial($rows));
     return $count;
+  }
+
+  function searchdesc($keyword){
+    $collection = getJobadsCollection();
+    $regx = new MongoDB\BSON\Regex($keyword, 'i');
+    $rows = $collection->find(['$or'=>[['desc'=>['$regex'=> $regx]],['req'=>['$regex'=> $regx]],['qual'=>['$regex'=> $regx]]]]);
+    $rows = unserial($rows);
+    $rowtemp = array();
+    foreach ($rows as $key => $value) {
+      $rowtemp = $rowtemp + unserial($value);
+    }
+    return $rows;
   }
 
  ?>

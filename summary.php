@@ -1,5 +1,6 @@
 <?php
   require('functions.php');
+  require('components.php');
  ?>
 
 <head>
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
 </head>
 <body>
+  <?php navbar(); ?>
   <section class="section">
     <div class="container">
       <div class="columns">
@@ -18,6 +20,7 @@
             <ul class="menu-list">
               <li><a href="summary.php">Summary</a></li>
               <li><a href="database.php">Database</a></li>
+              <li><a href="search.php">Search</a></li>
             </ul>
           </aside>
         </div>

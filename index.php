@@ -1,6 +1,7 @@
 <?php
   session_start();
   require('functions.php');
+  require('components.php');
   if (!isset($_SESSION['doc'])) {
     $_SESSION['doc'] = unserial(randomrow());
   }
@@ -15,10 +16,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Classifier</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-
 </head>
 
 <body>
+  <?php navbar(); ?>
   <section class="section">
     <div class="container">
       <div class="columns">
