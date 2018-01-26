@@ -55,16 +55,20 @@
                             <?php
                             $rows = searchdesc($_POST['searchkeyword']);
                             foreach ($rows as $key => $value) {
-                              echo "<tr>";
-                              echo '<td><label class="checkbox"><input type="checkbox" name="markedrow[]" value="'.$value['_id'].'"></label></td>';
-                              foreach ($value as $keyin => $valuein) {
-                                if ($keyin=='_id' OR $keyin=='company') {
-                                  //
-                                }else{
-                                  echo "<td>".$valuein."</td>";
+
+                              if (!isset($value['status'])) {
+                                echo "<tr>";
+                                echo '<td><label class="checkbox"><input type="checkbox" name="markedrow[]" value="'.$value['_id'].'"></label></td>';
+                                foreach ($value as $keyin => $valuein) {
+                                  if ($keyin=='_id' OR $keyin=='company' OR $keyin=='pos' OR $keyin=='pos1' OR $keyin=='pos2') {
+                                    //
+                                  }else{
+                                    echo "<td>".$valuein."</td>";
+                                  }
                                 }
+                                echo "</tr>";
                               }
-                              echo "</tr>";
+
                             }
                              ?>
                           </tbody>

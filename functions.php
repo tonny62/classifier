@@ -117,4 +117,11 @@
     return $rows;
   }
 
+  function markcategorynocode($id, $category){
+    require('vendor/autoload.php');
+    require('variables.php');
+    $collection = getJobadsCollection();
+    $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'marked','category'=>$category]]);
+  }
+
  ?>
