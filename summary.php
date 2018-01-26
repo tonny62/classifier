@@ -15,63 +15,85 @@
     <div class="container">
       <div class="columns">
         <div class="column is-2">
-          <aside class="menu">
-            <p class="menu-label">Menu</p>
-            <ul class="menu-list">
-              <li><a href="summary.php">Summary</a></li>
-              <li><a href="database.php">Database</a></li>
-              <li><a href="search.php">Search</a></li>
-            </ul>
-          </aside>
+          <?php sidebar(); ?>
         </div>
         <div class="column is-10">
           <div class="box">
-            <div class="content">
-              <h2><u>Summary</u></h2>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Computer Occupation</th>
-                    <th>Mathematicians</th>
-                    <th>Engineer</th>
-                    <th>Scientists</th>
-                    <th>Other</th>
-                    <th>Total Jobs</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                    $frame = countDataframe();
-                    $count = array();
-                    foreach ($frame as $key => $value) {
-                      echo "<tr>";
-                      echo "<td>".$key."</td>";
-                      foreach ($value as $keyin => $valuein) {
-                        echo "<td>".$valuein."</td>";
-                        if (!isset($count[$keyin])) {
-                          $count[$keyin] = 0 + $valuein;
-                        }else{
-                          $count[$keyin] += $valuein;
+            <?php if (!isset($_GET['category'])): ?>
+              <div class="content">
+                <h2><u>Summary</u></h2>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Computer Occupation</th>
+                      <th>Mathematicians</th>
+                      <th>Engineer</th>
+                      <th>Scientists</th>
+                      <th>Other</th>
+                      <th>Total Jobs</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                      $frame = countDataframe();
+                      $count = array();
+                      foreach ($frame as $key => $value) {
+                        echo "<tr>";
+                        echo "<td>".$key."</td>";
+                        foreach ($value as $keyin => $valuein) {
+                          echo "<td>".$valuein."</td>";
+                          if (!isset($count[$keyin])) {
+                            $count[$keyin] = 0 + $valuein;
+                          }else{
+                            $count[$keyin] += $valuein;
+                          }
                         }
+                        echo "</tr>";
+                      }
+                      echo "<tr><th>TOTAL</th>";
+                      $markedcount = 0;
+                      foreach ($count as $key => $value) {
+                        echo "<td>".$value."</td>";
+                        $markedcount += $value;
                       }
                       echo "</tr>";
+                      $total = $value;
+                      $markedcount = $markedcount - $value;
+                     ?>
+                  </tbody>
+                </table>
+                <h4>Progress : <?php echo $markedcount."/".$total; ?></h4>
+                <h4>Skipped : <?php echo countskip(); ?></h4>
+              </div>
+            <?php else: ?>
+              <div class="content">
+                <table class="table is-bordered">
+                  <tr>
+                    <th>Category</th>
+                    <th>Occupation</th>
+                    <th>Description</th>
+                    <th>Count</th>
+                  </tr>
+                  <?php
+                  $rows = getOccupations($_GET['category']);
+                  foreach ($rows as $key => $value) {
+                    echo "<tr>";
+                    foreach ($value as $keyin => $valuein) {
+                      if($keyin !== 'code'){
+                        echo "<td>$valuein</td>";
+                      }
                     }
-                    echo "<tr><th>TOTAL</th>";
-                    $markedcount = 0;
-                    foreach ($count as $key => $value) {
-                      echo "<td>".$value."</td>";
-                      $markedcount += $value;
-                    }
+                    echo "<td>".countoccupation($value['code'])."</td>";
                     echo "</tr>";
-                    $total = $value;
-                    $markedcount = $markedcount - $value;
+                  }
+
+
                    ?>
-                </tbody>
-              </table>
-              <h4>Progress : <?php echo $markedcount."/".$total; ?></h4>
-              <h4>Skipped : <?php echo countskip(); ?></h4>
-            </div>
+                </table>
+              </div>
+            <?php endif; ?>
+
           </div>
         </div>
       </div>

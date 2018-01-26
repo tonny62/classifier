@@ -15,17 +15,6 @@
     <section class="section">
       <div class="container is-fluid">
 
-          <!-- <div class="column is-2">
-            <aside class="menu">
-              <p class="menu-label">Menu</p>
-              <ul class="menu-list">
-                <li><a href="summary.php">Summary</a></li>
-                <li><a href="database.php">Database</a></li>
-                <li><a href="search.php">Search</a></li>
-              </ul>
-            </aside>
-          </div> -->
-
               <div class="content">
                 <h2>Search</h2>
               </div>

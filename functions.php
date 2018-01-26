@@ -123,5 +123,11 @@
     $collection = getJobadsCollection();
     $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'marked','category'=>$category]]);
   }
+  function countoccupation($jobid){
+    $collection = getJobadsCollection();
+    $rows = $collection->find(['code'=>$jobid]);
+    $count = count(unserial($rows));
+    return $count;
+  }
 
  ?>

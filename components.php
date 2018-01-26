@@ -14,4 +14,21 @@
     </nav>';
   }
 
+  function sidebar(){
+    echo '<aside class="menu">
+      <p class="menu-label">Menu</p>
+      <ul class="menu-list">
+        <li><a href="summary.php">Summary</a></li>
+          <li><ul>
+            <li><a href="summary.php?category=1">Computer Occupations</a></li>
+            <li><a href="summary.php?category=2">Mathematicians</a></li>
+            <li><a href="summary.php?category=3">Engineer</a></li>
+            <li><a href="summary.php?category=4">Scientists</a></li>
+          </ul></li>
+        <li><a href="database.php">Database</a></li>
+        <li><a href="search.php">Search</a></li>
+      </ul>
+    </aside>';
+  }
+
  ?>
