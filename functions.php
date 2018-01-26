@@ -3,7 +3,7 @@
     require('vendor/autoload.php');
     require('variables.php');
     $client = new MongoDB\Client($connectionstring);
-    $collection = $client->jobads->jobads;
+    $collection = $client->jobads2->jobads;
     return $collection;
   }
 
@@ -37,7 +37,7 @@
     require('vendor/autoload.php');
     require('variables.php');
     $client = new MongoDB\Client($connectionstring);
-    $collection = $client->jobads->occupations;
+    $collection = $client->jobads2->occupations;
     if ($occupation == 1) {
       $occu = 'Computer Occupation';
     }else if($occupation == 2){
@@ -56,7 +56,7 @@
       require('vendor/autoload.php');
       require('variables.php');
       $client = new MongoDB\Client($connectionstring);
-      $collection = $client->jobads->occupations;
+      $collection = $client->jobads2->occupations;
       $row = $collection->find(['code'=>$occupation]);
       $row = unserial($row);
 
