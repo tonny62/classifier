@@ -75,7 +75,7 @@
   }
   function countDataframe(){
     $collection = getJobadsCollection();
-    $jobsource = array('NECTEC','JOBANT','JOBLIST','JOBSAWASDEE','JOBSUGOI','JOBTH','NATIONEJOB');
+    $jobsource = array('NECTEC','JOBANT','JOBLIST','JOBSAWASDEE','JOBSUGOI','JOBTH','NATIONEJOB','JOBPUB');
     $occupation = array('Computer Occupation','Mathematicians','Engineer','Scientists','Other');
     $frame = array();
     foreach ($jobsource as $key => $value) {
