@@ -50,7 +50,12 @@
                                 echo '<td><label class="checkbox"><input type="checkbox" name="markedrow[]" value="'.$value['_id'].'"></label></td>';
                                 echo "<td>";
                                 foreach ($value as $keyin => $valuein) {
-                                  echo "$valuein";
+                                  if ($keyin == 'pos' OR $keyin =='company') {
+                                    echo "<b>$valuein</b>";
+                                  }else {
+                                    echo "$valuein";
+                                    
+                                  }
                                   echo "<br>";
                                 }
                                 echo "</td>";
