@@ -48,13 +48,12 @@
                               if (!isset($value['status'])) {
                                 echo "<tr>";
                                 echo '<td><label class="checkbox"><input type="checkbox" name="markedrow[]" value="'.$value['_id'].'"></label></td>';
+                                echo "<td>";
                                 foreach ($value as $keyin => $valuein) {
-                                  if ($keyin=='_id' OR $keyin=='company' OR $keyin=='pos' OR $keyin=='pos1' OR $keyin=='pos2') {
-                                    //
-                                  }else{
-                                    echo "<td>".$valuein."</td>";
-                                  }
+                                  echo "$valuein";
+                                  echo "<br>";
                                 }
+                                echo "</td>";
                                 echo "</tr>";
                               }
 
