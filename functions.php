@@ -130,4 +130,33 @@
     return $count;
   }
 
+  function getjobsfromtag($tag){
+    if (in_array($tag,['1','2','3','4'])) {
+      echo "hi";
+    }else {
+      $collection = getJobadsCollection();
+      $rows = $collection->find(['code'=>$tag]);
+      return unserial($rows);
+    }
+  }
+  function getjobsfromjobid($jobid){
+    $collection = getJobadsCollection();
+    $rows = $collection->findOne(['_id'=>$jobid]);
+    return unserial($rows);
+  }
+  function getcategoryname($code){
+    require('vendor/autoload.php');
+    require('variables.php');
+    $client = new MongoDB\Client($connectionstring);
+    $collection = $client->jobads2->occupations;
+    $row = $collection->find(['code'=>$code]);
+    $row = unserial($row);
+    return $row[0]['occupation'];
+  }
+
+  function getjobsfromcategory($category){
+    $collection = getJobadsCollection();
+    $rows = $collection->find(['category'=>$category]);
+    return unserial($rows);
+  }
  ?>
