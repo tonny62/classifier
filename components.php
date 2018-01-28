@@ -25,7 +25,7 @@
             <li><a href="summary.php?category=3">Engineer</a></li>
             <li><a href="summary.php?category=4">Scientists</a></li>
           </ul></li>
-        <li><a href="database.php">Database</a></li>
+        <li><a href="database.php">View Database</a></li>
         <li><a href="search.php">Search</a></li>
       </ul>
     </aside>';
