@@ -29,6 +29,7 @@
               <div class="content">
                 <table class="table">
                   <h2>Job Details</h2>
+                  <h4><?php echo mytimestamp();?></h4>
                   <?php
                     foreach ($doc as $key => $value) {
                       echo "<tr>";
@@ -55,7 +56,12 @@
                 </div>
                 <div class="column has-text-centered">
                   <?php
-                  echo "<a href='destroy.php?id=".$_SESSION['doc']['_id']."&code=skip' class='button is-warning'>SKIP</a>";
+                  echo "<a href='destroy.php?id=".$_SESSION['doc']['_id']."&code=other' class='button is-link is-large'>OTHER</a>";
+                  ?>
+                </div>
+                <div class="column has-text-centered">
+                  <?php
+                  echo "<a href='destroy.php?id=".$_SESSION['doc']['_id']."&code=stem' class='button is-link is-large'>STEM</a>";
                   ?>
                 </div>
                 <div class="column">
@@ -90,7 +96,7 @@
 
           </div> -->
         </div>
-        <div class="box">
+        <!-- <div class="box">
           <div class="content">
             <h2>In which category this job belongs to?</h2>
             <nav class="level">
@@ -173,7 +179,7 @@
                 <?php endif; ?>
               <?php endif; ?>
 
-        </div>
+        </div> -->
       </div>
 
 

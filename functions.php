@@ -52,24 +52,31 @@
   }
 
   function markCategory($id, $occupation){
-    if ($occupation != 5) {
-      require('vendor/autoload.php');
-      require('variables.php');
-      $client = new MongoDB\Client($connectionstring);
-      $collection = $client->jobads2->occupations;
-      $row = $collection->find(['code'=>$occupation]);
-      $row = unserial($row);
-
+    // if ($occupation != 5) {
+    //   require('vendor/autoload.php');
+    //   require('variables.php');
+    //   $client = new MongoDB\Client($connectionstring);
+    //   $collection = $client->jobads2->occupations;
+    //   $row = $collection->find(['code'=>$occupation]);
+    //   $row = unserial($row);
+    //   $collection = getJobadsCollection();
+    //   // print_r($row);
+    //   $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>$row[0]['category'],'code'=>$occupation]]);
+    //   // echo $row[0]['category'];
+    // }else
+    // if ($occupation == 'skip') {
+    //   $collection = getJobadsCollection();
+    //   $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'skip']]);
+    // }else
+    if($ocupation == 'stem'){
       $collection = getJobadsCollection();
-      // print_r($row);
-      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>$row[0]['category'],'code'=>$occupation]]);
-      // echo $row[0]['category'];
-    }else if ($occupation == 'skip') {
+      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'STEM','timestamp'=>mytimestamp()]]);
+    }else if($occupation == 'Other'){
       $collection = getJobadsCollection();
-      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'skip']]);
+      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'Other','timestamp'=>mytimestamp()]]);
     }else {
       $collection = getJobadsCollection();
-      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'Other']]);
+      $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'Other','timestamp'=>mytimestamp()]]);
     }
 
   }
@@ -158,5 +165,10 @@
     $collection = getJobadsCollection();
     $rows = $collection->find(['category'=>$category]);
     return unserial($rows);
+  }
+
+  function mytimestamp(){
+    date_default_timezone_set('Asia/Bangkok');
+    return date("d-m-y H:i:s");
   }
  ?>
