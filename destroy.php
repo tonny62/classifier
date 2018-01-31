@@ -9,10 +9,12 @@
       header('Location: index.php');
     }elseif($_GET['code'] == 'stem'){
       // stem occupation
+      // echo "stem";
       markCategory($_GET['id'],'stem');
       header('Location: index.php');
     }elseif($_GET['code'] == 'other'){
       // other
+      // echo "other";
       markCategory($_GET['id'],'Other');
       header('Location: index.php');
     }

@@ -18,7 +18,7 @@
     $numrow = $collection->count();
     $randrow = rand(0,$numrow);
     $row = $collection->findOne(
-      ['status'=>['$ne'=>["locked","done"]]],
+      ['status'=>['$ne'=>["locked","done"]],"code"=>['$ne'=>["skip"]]],
       ['skip'=>$randrow]
     );
     $collection->updateOne(["_id" => $row['_id']], ['$set'=> ['status'=>'locked']]);
@@ -68,7 +68,7 @@
     //   $collection = getJobadsCollection();
     //   $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'skip']]);
     // }else
-    if($ocupation == 'stem'){
+    if($occupation == 'stem'){
       $collection = getJobadsCollection();
       $collection->updateOne(["_id" => $id], ['$set'=> ['status'=>'done','category'=>'STEM','timestamp'=>mytimestamp()]]);
     }else if($occupation == 'Other'){
@@ -83,7 +83,7 @@
   function countDataframe(){
     $collection = getJobadsCollection();
     $jobsource = array('NECTEC','JOBANT','JOBLIST','JOBSAWASDEE','JOBSUGOI','JOBTH','NATIONEJOB','JOBPUB');
-    $occupation = array('Computer Occupation','Mathematicians','Engineer','Scientists','Other');
+    $occupation = array('Computer Occupation','Mathematicians','Engineer','Scientists','Other','STEM');
     $frame = array();
     foreach ($jobsource as $key => $value) {
       foreach ($occupation as $keyin => $valuein) {

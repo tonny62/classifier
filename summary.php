@@ -31,6 +31,7 @@
                       <th>Engineer</th>
                       <th>Scientists</th>
                       <th>Other</th>
+                      <th>STEM</th>
                       <th>Total Jobs</th>
                     </tr>
                   </thead>
