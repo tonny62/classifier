@@ -4,6 +4,11 @@
   require('components.php');
   if (!isset($_SESSION['doc'])) {
     $_SESSION['doc'] = unserial(randomrow());
+    if(in_array($_SESSION['doc']['status'],['locked','done']) OR $_SESSION['doc']['status'] == 'skip'){
+      while (in_array($_SESSION['doc']['status'],['locked','done']) OR $_SESSION['doc']['status'] == 'skip') {
+        $_SESSION['doc'] = unserial(randomrow());
+      }
+    }
   }
   $doc = $_SESSION['doc'];
   // var_dump($doc);
