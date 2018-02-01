@@ -1,6 +1,11 @@
 <?php
   require('functions.php');
   require('components.php');
+  if(!isset($_GET['page'])){
+    $page = 1;
+  }else{
+    $page = $_GET['page'];
+  }
 ?>
 
 <head>
@@ -19,195 +24,124 @@
           <?php sidebar(); ?>
         </div>
         <div class="column is-10">
-          <?php if (!isset($_POST['tag'])): ?>
-            <!-- no tag -->
-            <div class="box">
-              <div class="columns">
-                <div class="column"></div>
-                <div class="column">
-                  <form action="database.php" method="post">
-                    <div class="field">
-                      <label class="label">Tag</label>
-                      <div class="field has-addons">
-                        <div class="select">
-                          <select name="tag">
-                            <?php
-                            $occlist=['','Computer Occupations','Mathematicians','Engineer','Scientists'];
-                            for ($i=1; $i < 5; $i++) {
-                                $rows = unserial(getOccupations($i));
-                                echo("<option value='".$i."'>See All ".$occlist[$i]."</option>");
-                                foreach ($rows as $key => $value) {
-                                    echo("<option value='".$value['code']."'>".$value['code']." - ".$value['occupation']." ".countoccupation($value['code'])."</option>");
-                                }
-                            }
-                            echo("<option value='5'>Other</option>");
-                             ?>
-                          </select>
-                        </div>
-                        <input type="submit" value="Search" class="button">
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="column"></div>
+          <div class="box">
+            <?php if (!isset($_GET['category'])): ?>
+              <div class="content">
+                <h2>View Database</h2>
+                <a href="?category=stem">
+                  <button type="button" class="button is-large">View STEM</button>
+                </a>
+                <a href="?category=other">
+                  <button type="button" class="button is-large">View Other</button>
+                </a>
               </div>
-            </div>
-          <?php else: ?>
-            <!-- selected tag from select -->
-            <?php if (in_array($_POST['tag'],['1','2','3','4'])): ?>
-              <!-- select large category -->
-              <div class="box">
+            <?php elseif($_GET['category'] == 'stem'): ?>
+              <!-- stem -->
+              <div class="content">
+                <h2>STEM Jobs</h2>
+              </div>
+              <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
                 <?php
-                        if ($_POST['tag'] == 1) {
-                            $occu = 'Computer Occupation';
-                        } elseif ($_POST['tag'] == 2) {
-                            $occu = 'Mathematicians';
-                        } elseif ($_POST['tag'] == 3) {
-                            $occu = 'Engineer';
-                        } else {
-                            $occu = 'Scientists';
-                        }
-                        $rows = getjobsfromcategory($occu);
-                ?>
-                <div class="content">
-                  <h2><?php echo $occu;?></h2>
-                </div>
-                <?php if (count($rows) == 0): ?>
-                  <!-- no rows -->
-                  <h4>No entry</h4>
-                <?php else: ?>
-                  <!-- has rows -->
-                  <div class="table">
-                    <table>
-                      <thead>
-                        <th>ID</th>
-                        <th>pos</th>
-                        <th>desc</th>
-                        <th>tag</th>
-                        <th>retag</th>
-                      </thead>
-                      <tbody>
-                        <?php
-                         foreach ($rows as $key => $value) {
-                             echo "<tr>";
-                             echo "<td>".$value['_id']."</td>";
-                             if (!isset($value['pos'])) {
-                               echo "<td></td>";
-                             }else {
-                               echo "<td>".$value['pos']."</td>";
-                             }
-                             echo "<td>".$value['desc']."</td>";
-
-                             // foreach ($value as $keyin => $valuein) {
-                             //     if (in_array($keyin, ['_id','pos','desc'])) {
-                             //         echo "<td>";
-                             //         echo $valuein;
-                             //         echo "</td>";
-                             //     }
-                             // }
-                             // var_dump($value);
-
-                             if (isset($value['code'])) {
-                               echo "<td>".getcategoryname($value['code'])."</td>";
-                             }else {
-                               echo "<td>Marked</td>";
-                             }
-
-                             echo "<td><a href='retag.php?jobid=".$value['_id']."' class='button is-link'>Retag</a></td>";
-                             echo "</tr>";
-                         }
-                       ?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              <?php endif; ?>
-            <?php elseif($_POST['tag'] == '5'): ?>
-              <!-- select other -->
-              <div class="box">
-                <?php
-                  $rows = getjobsfromcategory('Other');
-                ?>
-                <div class="content">
-                  <h2>Other</h2>
-                </div>
-                <div class="table">
-                  <table>
-                    <thead>
-                      <th>ID</th>
+                  if($page == '1'){
+                    echo '<a class="pagination-previous" href="?category=stem&page='.($page - 1).'" disabled>Previous</a>';
+                  }else {
+                    echo '<a class="pagination-previous" href="?category=stem&page='.($page - 1).'">Previous</a>';
+                  }
+                  if (count(getstem($page + 1)) > 0) {
+                    echo '<a class="pagination-next" href="?category=stem&page='.($page + 1).'">Next page</a>';
+                  }else{
+                    echo '<a class="pagination-next" href="?category=stem&page='.($page + 1).'" disabled>Next page</a>';
+                  }
+                 ?>
+              </nav>
+              <div class="table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>id</th>
                       <th>pos</th>
                       <th>desc</th>
                       <th>retag</th>
-                    </thead>
-                    <tbody>
-                      <?php
-                       foreach ($rows as $key => $value) {
-                           echo "<tr>";
-                           echo "<td>".$value['_id']."</td>";
-                           if (!isset($value['pos'])) {
-                             echo "<td></td>";
-                           }else {
-                             echo "<td>".$value['pos']."</td>";
-                           }
-                           if (!isset($value['desc'])) {
-                             echo "<td></td>";
-                           }else {
-                             echo "<td>".$value['desc']."</td>";
-                           }
-                           echo "<td><a href='retag.php?jobid=".$value['_id']."' class='button is-link'>Retag</a></td>";
-                           echo "</tr>";
-                       }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $rows = getstem($page);
+                    foreach ($rows as $key => $value) {
+                      echo "<tr>";
+                      echo "<td>".$value['_id']."</td>";
+                      if (isset($value['pos'])) {
+                        echo "<td>".$value['pos']."</td>";
+                      }else {
+                        echo "<td></td>";
+                      }
+                      if (isset($value['desc'])) {
+                        echo "<td>".$value['desc']."</td>";
+                      }else {
+                        echo "<td></td>";
+                      }
+                      echo "<td><a href='retag2.php?category=other&id=".$value['_id']."' class='button'>Other</a></td>";
+                      echo "</tr>";
+                    }
                      ?>
-                    </tbody>
-                  </table>
-                </div>
+                  </tbody>
+                </table>
               </div>
             <?php else: ?>
-              <!-- select occupation -->
-              <div class="box">
-                <div class="content">
-                  <?php
-                        echo "<h2>".getcategoryname($_POST['tag'])."</h2>";
-                        $rows = getjobsfromtag($_POST['tag']);
-                  ?>
-                </div>
-                <?php if (count($rows) == 0): ?>
-                  <!-- no rows -->
-                  <h4>No entry</h4>
-                <?php else: ?>
-                  <!-- rows -->
-                  <div class="table">
-                    <table>
-                      <thead>
-                        <th>ID</th>
-                        <th>pos</th>
-                        <th>desc</th>
-                        <th>retag</th>
-                      </thead>
-                      <tbody>
-                        <?php
-                          foreach ($rows as $key => $value) {
-                              echo "<tr>";
-                              foreach ($value as $keyin => $valuein) {
-                                  if (in_array($keyin, ['_id','pos','desc'])) {
-                                      echo "<td>";
-                                      echo $valuein;
-                                      echo "</td>";
-                                  }
-                              }
-                              // var_dump($value);
-                              echo "<td><a href='retag.php?jobid=".$value['_id']."' class='button is-link'>Retag</a></td>";
-                              echo "</tr>";
-                          }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
-
-                <?php endif; ?>
+              <!-- other -->
+              <div class="content">
+                <h2>Other Jobs</h2>
               </div>
+              <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                <?php
+                  if($page == '1'){
+                    echo '<a class="pagination-previous" href="?category=other&page='.($page - 1).'" disabled>Previous</a>';
+                  }else {
+                    echo '<a class="pagination-previous" href="?category=other&page='.($page - 1).'">Previous</a>';
+                  }
+                  if (count(getother($page + 1)) > 0) {
+                    echo '<a class="pagination-next" href="?category=other&page='.($page + 1).'">Next page</a>';
+                  }else{
+                    echo '<a class="pagination-next" href="?category=other&page='.($page + 1).'" disabled>Next page</a>';
+                  }
+                 ?>
+              </nav>
+              <div class="table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>pos</th>
+                      <th>desc</th>
+                      <th>retag</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $rows = getother($page);
+                    foreach ($rows as $key => $value) {
+                      echo "<tr>";
+                      echo "<td>".$value['_id']."</td>";
+                      if (isset($value['pos'])) {
+                        echo "<td>".$value['pos']."</td>";
+                      }else {
+                        echo "<td></td>";
+                      }
+                      if (isset($value['desc'])) {
+                        echo "<td>".$value['desc']."</td>";
+                      }else {
+                        echo "<td></td>";
+                      }
+                      echo "<td><a href='retag2.php?category=stem&id=".$value['_id']."' class='button'>STEM</a></td>";
+                      echo "</tr>";
+                    }
+                     ?>
+                  </tbody>
+                </table>
+              </div>
+
             <?php endif; ?>
-          <?php endif; ?>
+          </div>
         </div>
       </div>
     </div>

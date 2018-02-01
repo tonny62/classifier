@@ -43,6 +43,23 @@
 
                    ?>
                 </table>
+                <div class="columns is-centered">
+                  <div class="column">
+                  </div>
+                  <div class="column has-text-centered">
+                    <?php
+                    echo "<a href='destroy.php?id=".$_GET['jobid']."&code=other' class='button is-link is-large'>OTHER</a>";
+                    ?>
+                  </div>
+                  <div class="column has-text-centered">
+                    <?php
+                    echo "<a href='destroy.php?id=".$_GET['jobid']."&code=stem' class='button is-link is-large'>STEM</a>";
+                    ?>
+                  </div>
+                  <div class="column">
+
+                  </div>
+              </div>
                 </div>
               </div>
           </div>
@@ -73,7 +90,7 @@
 
           </div> -->
         </div>
-        <div class="box">
+        <!-- <div class="box">
           <div class="content">
             <h2>Retag this job to?</h2>
             <nav class="level">
@@ -157,7 +174,7 @@
                 <?php endif; ?>
               <?php endif; ?>
 
-        </div>
+        </div> -->
       </div>
 
 

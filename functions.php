@@ -107,7 +107,7 @@
   }
   function countskip(){
     $collection = getJobadsCollection();
-    $rows = $collection->find(['status'=>'skip']);
+    $rows = $collection->find(['code'=>'skip']);
     $count = count(unserial($rows));
     return $count;
   }
@@ -170,5 +170,19 @@
   function mytimestamp(){
     date_default_timezone_set('Asia/Bangkok');
     return date("d-m-y H:i:s");
+  }
+  function getstem($page){
+    $collection = getJobadsCollection();
+    $rows = $collection->find(['category'=>'STEM']);
+    $rows = unserial($rows);
+    $offset = ($page - 1)*50;
+    return array_slice($rows,$offset,50);
+  }
+  function getother($page){
+    $collection = getJobadsCollection();
+    $rows = $collection->find(['category'=>'Other']);
+    $rows = unserial($rows);
+    $offset = ($page - 1)*50;
+    return array_slice($rows,$offset,50);
   }
  ?>
